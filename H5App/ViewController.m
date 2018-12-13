@@ -39,7 +39,7 @@
     
     _scroll1.maximumZoomScale = 1.5;
 
-    WebView *web = [[WebView alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH * 0.9, MAIN_SCREEN_HEIGHT * 0.9)];
+    WebView *web = [[WebView alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH , MAIN_SCREEN_HEIGHT)];
     web.removeCall = ^{
          [self checkoutWeb];
     };
@@ -65,8 +65,8 @@
 //        __block slf = self;
         _count += 1;
         
-        _scroll1.contentSize = CGSizeMake(_count * (MAIN_SCREEN_WIDTH * 0.9) + _count * 40 + 20, MAIN_SCREEN_HEIGHT * 1.1);
-       __block WebView *web = [[WebView alloc] initWithFrame:CGRectMake( (_count  - 1)* ( MAIN_SCREEN_WIDTH * 0.9) + 20 *_count , 20, MAIN_SCREEN_WIDTH * 0.9, MAIN_SCREEN_HEIGHT * 0.9)];
+        _scroll1.contentSize = CGSizeMake(_count * (MAIN_SCREEN_WIDTH * 0.9) + _count * 40 + 20, MAIN_SCREEN_HEIGHT * 1.2);
+       __block WebView *web = [[WebView alloc] initWithFrame:CGRectMake( (_count  - 1)* ( MAIN_SCREEN_WIDTH * 1) + 20 *_count , 20, MAIN_SCREEN_WIDTH * 1, MAIN_SCREEN_HEIGHT * 1)];
         web.removeCall = ^{
            
             [self checkoutWeb];
@@ -83,12 +83,12 @@
 -(void)checkoutWeb
 {
     self.count--;
-    self.scroll1.contentSize = CGSizeMake(self.count * (MAIN_SCREEN_WIDTH * 0.9 + 40) + 20, MAIN_SCREEN_HEIGHT * 1.1);
+    self.scroll1.contentSize = CGSizeMake(self.count * (MAIN_SCREEN_WIDTH * 1 + 40) + 20, MAIN_SCREEN_HEIGHT * 1.1);
     
     NSArray *array = self.scroll1.subviews;
     int i = 1;
     for (WebView *web in array) {
-        web.frame = CGRectMake( (i  - 1)*  MAIN_SCREEN_WIDTH * 0.9 + ( i * 20 ), 20, MAIN_SCREEN_WIDTH * 0.9, MAIN_SCREEN_HEIGHT * 0.9);
+        web.frame = CGRectMake( (i  - 1)*  MAIN_SCREEN_WIDTH * 1 + ( i * 20 ), 20, MAIN_SCREEN_WIDTH * 1, MAIN_SCREEN_HEIGHT * 1);
         i++;
     }
 }
