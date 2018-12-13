@@ -13,6 +13,9 @@
 		57F237CE21C1EE0100858C47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57F237CD21C1EE0100858C47 /* Assets.xcassets */; };
 		57F237D121C1EE0100858C47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57F237CF21C1EE0100858C47 /* LaunchScreen.storyboard */; };
 		57F237D421C1EE0100858C47 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F237D321C1EE0100858C47 /* main.m */; };
+		57F237DD21C1FAF800858C47 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F237DB21C1FAF800858C47 /* GameViewController.m */; };
+		57F237DE21C1FAF800858C47 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57F237DC21C1FAF800858C47 /* GameViewController.xib */; };
+		57F237E121C23BA200858C47 /* WebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F237E021C23BA200858C47 /* WebView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,11 @@
 		57F237D021C1EE0100858C47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		57F237D221C1EE0100858C47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57F237D321C1EE0100858C47 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		57F237DA21C1FAF800858C47 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		57F237DB21C1FAF800858C47 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		57F237DC21C1FAF800858C47 /* GameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
+		57F237DF21C23BA200858C47 /* WebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebView.h; sourceTree = "<group>"; };
+		57F237E021C23BA200858C47 /* WebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +70,11 @@
 				57F237C521C1EDFF00858C47 /* AppDelegate.m */,
 				57F237C721C1EDFF00858C47 /* ViewController.h */,
 				57F237C821C1EDFF00858C47 /* ViewController.m */,
+				57F237DF21C23BA200858C47 /* WebView.h */,
+				57F237E021C23BA200858C47 /* WebView.m */,
+				57F237DA21C1FAF800858C47 /* GameViewController.h */,
+				57F237DB21C1FAF800858C47 /* GameViewController.m */,
+				57F237DC21C1FAF800858C47 /* GameViewController.xib */,
 				57F237CA21C1EDFF00858C47 /* Main.storyboard */,
 				57F237CD21C1EE0100858C47 /* Assets.xcassets */,
 				57F237CF21C1EE0100858C47 /* LaunchScreen.storyboard */,
@@ -128,6 +141,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57F237DE21C1FAF800858C47 /* GameViewController.xib in Resources */,
 				57F237D121C1EE0100858C47 /* LaunchScreen.storyboard in Resources */,
 				57F237CE21C1EE0100858C47 /* Assets.xcassets in Resources */,
 				57F237CC21C1EDFF00858C47 /* Main.storyboard in Resources */,
@@ -141,7 +155,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57F237DD21C1FAF800858C47 /* GameViewController.m in Sources */,
 				57F237C921C1EDFF00858C47 /* ViewController.m in Sources */,
+				57F237E121C23BA200858C47 /* WebView.m in Sources */,
 				57F237D421C1EE0100858C47 /* main.m in Sources */,
 				57F237C621C1EDFF00858C47 /* AppDelegate.m in Sources */,
 			);
@@ -285,14 +301,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R7G9YTK95B;
 				INFOPLIST_FILE = H5App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yy.H5App;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gjfax.H5App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -301,14 +320,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R7G9YTK95B;
 				INFOPLIST_FILE = H5App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yy.H5App;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gjfax.H5App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

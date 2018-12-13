@@ -10,6 +10,14 @@
 
 @interface ViewController : UIViewController
 
+//@property (weak, nonatomic)  UIWebView *web1;
+//@property (weak, nonatomic)  UIWebView *web2;
+@property (weak, nonatomic)  UISwitch *checout;
+@property (weak, nonatomic)  UIScrollView *scroll1;
+//@property (weak, nonatomic)  UIScrollView *scroll2;
+
+//@property (weak, nonatomic)  UIView *scrollView1;
+//@property (weak, nonatomic)  UIView *scrollView2;
 
 @end
 
