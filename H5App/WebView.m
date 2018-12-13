@@ -28,9 +28,12 @@
         
         UIButton *btn = [UIButton new];
         [btn addTarget:self action:@selector(remove:) forControlEvents:UIControlEventTouchUpInside];
-        btn.frame = CGRectMake(20, 10, 60, 60);
-        [btn setTitle:@"X" forState:UIControlStateNormal];
+        btn.frame = CGRectMake(20, 10, 40, 30);
+        [btn setTitle:@"CLS" forState:UIControlStateNormal];
         [self addSubview:btn];
+//        [btn setBackgroundColor:[UIColor grayColor]];
+        [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+
 //        self.backgroundColor = [UIColor redColor];
     }
     return  self;

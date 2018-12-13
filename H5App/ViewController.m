@@ -48,20 +48,24 @@
     _count = 1;
     [_array addObject:web];
     
-    UISwitch *swi = [[UISwitch alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH * 0.5 -10, 10, 20, 20)];
-    [swi addTarget:self action:@selector(checkout:) forControlEvents:UIControlEventValueChanged];
+    UIButton *swi = [[UIButton alloc] initWithFrame:CGRectMake(5, 20, 60, 30)];
+    [swi addTarget:self action:@selector(checkout:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:swi];
+    [swi setTitle:@"open" forState:UIControlStateNormal];
+//    swi.titleLabel.textColor = [UIColor grayColor];
+    [swi setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+//    [swi setBackgroundColor:[UIColor grayColor]];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
-- (IBAction)checkout:(UISwitch*)sender {
+- (IBAction)checkout:(id)sender {
     _scroll1.scrollsToTop = YES;
 //    _scroll2.scrollsToTop = YES;
-    if (sender.on) {
+//    if (sender.on) {
 //        __block slf = self;
         _count += 1;
         
-        _scroll1.contentSize = CGSizeMake(_count * (MAIN_SCREEN_WIDTH * 0.9) + _count * 20, MAIN_SCREEN_HEIGHT * 1.1);
+        _scroll1.contentSize = CGSizeMake(_count * (MAIN_SCREEN_WIDTH * 0.9) + _count * 40 + 20, MAIN_SCREEN_HEIGHT * 1.1);
        __block WebView *web = [[WebView alloc] initWithFrame:CGRectMake( (_count  - 1)* ( MAIN_SCREEN_WIDTH * 0.9) + 20 *_count , 20, MAIN_SCREEN_WIDTH * 0.9, MAIN_SCREEN_HEIGHT * 0.9)];
         web.removeCall = ^{
            
@@ -72,17 +76,14 @@
        [web start];
         [_array addObject:web];
 
-    } else {
-        
-
-    }
+  
     NSLog(@"count %d _sc %f, %f",_count,_scroll1.contentSize.width,_scroll1.contentSize.height);
 }
 
 -(void)checkoutWeb
 {
     self.count--;
-    self.scroll1.contentSize = CGSizeMake(self.count * (MAIN_SCREEN_WIDTH * 0.9 + 40), MAIN_SCREEN_HEIGHT);
+    self.scroll1.contentSize = CGSizeMake(self.count * (MAIN_SCREEN_WIDTH * 0.9 + 40) + 20, MAIN_SCREEN_HEIGHT * 1.1);
     
     NSArray *array = self.scroll1.subviews;
     int i = 1;
