@@ -10,7 +10,7 @@
 #define MAIN_SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define MAIN_SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #import "WebView.h"
-
+#import <WebKit/WebKit.h>
 @interface ViewController ()<UIWebViewDelegate,UIScrollViewDelegate>
 @property (nonatomic, assign) int count;
 
@@ -26,7 +26,7 @@
     UIScrollView *scroll1 = [UIScrollView new];
     scroll1.delegate = self;
     scroll1.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH , MAIN_SCREEN_HEIGHT);
-    scroll1.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH * 2 , MAIN_SCREEN_HEIGHT*1.1);
+    scroll1.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH * 2 , MAIN_SCREEN_HEIGHT*1);
     [self.view addSubview:scroll1];
     _scroll1 = scroll1;
     
@@ -35,8 +35,8 @@
 //    scroll2.frame = CGRectMake(MAIN_SCREEN_WIDTH * 0.5 + 2, 0, MAIN_SCREEN_WIDTH * 0.5 - 2, MAIN_SCREEN_HEIGHT);
 //    scroll2.contentSize = CGSizeMake(MAIN_SCREEN_WIDTH * 0.5 , MAIN_SCREEN_HEIGHT);
 //    [self.view addSubview:scroll2];
-//    _scroll2 = scroll2;
-    
+//    _scroll2 = scroll2;s
+    self.view.backgroundColor = [UIColor darkGrayColor];
     _scroll1.maximumZoomScale = 1.5;
 
     WebView *web = [[WebView alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH , MAIN_SCREEN_HEIGHT)];
@@ -65,7 +65,7 @@
 //        __block slf = self;
         _count += 1;
         
-        _scroll1.contentSize = CGSizeMake(_count * (MAIN_SCREEN_WIDTH * 0.9) + _count * 40 + 20, MAIN_SCREEN_HEIGHT * 1.2);
+        _scroll1.contentSize = CGSizeMake(_count * (MAIN_SCREEN_WIDTH * 1) + _count * 40 + 20, MAIN_SCREEN_HEIGHT * 1.1);
        __block WebView *web = [[WebView alloc] initWithFrame:CGRectMake( (_count  - 1)* ( MAIN_SCREEN_WIDTH * 1) + 20 *_count , 20, MAIN_SCREEN_WIDTH * 1, MAIN_SCREEN_HEIGHT * 1)];
         web.removeCall = ^{
            
@@ -83,7 +83,7 @@
 -(void)checkoutWeb
 {
     self.count--;
-    self.scroll1.contentSize = CGSizeMake(self.count * (MAIN_SCREEN_WIDTH * 1 + 40) + 20, MAIN_SCREEN_HEIGHT * 1.1);
+    self.scroll1.contentSize = CGSizeMake(self.count * (MAIN_SCREEN_WIDTH * 1 + 40) + 20, MAIN_SCREEN_HEIGHT * 1.001);
     
     NSArray *array = self.scroll1.subviews;
     int i = 1;
@@ -93,14 +93,5 @@
     }
 }
 
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
-    NSLog(@"webViewDidStartLoad # %@",webView.request.URL.absoluteString);
-}
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    NSLog(@"webViewDidFinishLoad # %@",webView.request.URL.absoluteString);
-
-}
 
 @end
