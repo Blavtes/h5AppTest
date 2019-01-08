@@ -9,7 +9,7 @@
 #import "WebView.h"
 #define MAIN_SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define MAIN_SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
-@interface WebView() <UIWebViewDelegate>
+@interface WebView() <WKNavigationDelegate>
 @property (nonatomic, weak) UIView *maskView;
  @end
 
@@ -21,13 +21,16 @@
     if (self = [super initWithFrame:frame]) {
        
         
-        WKWebView *web = [[WKWebView alloc] initWithFrame:CGRectMake(10, 0, 0.9 * MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT *0.9)];
+        WKWebView *web = [[WKWebView alloc] initWithFrame:CGRectMake(10, 0, 0.9 * MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT *0.85)];
 //        web.delegate =self;
         web.backgroundColor = [UIColor grayColor];
+        web.navigationDelegate = self;
         [self addSubview:web];
         _webView = web;
+//        NotificationCenter default.addObserver(self, selector: @selector(getFocusElementId), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getFocusElementId) name:UIKeyboardWillShowNotification object:nil];
         
-       
 //        [btn setBackgroundColor:[UIColor grayColor]];
 //        UIView *mask = [[UIView alloc] initWithFrame:CGRectMake(10, 0, 0.9 * MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT *0.9)];
 //        mask.backgroundColor = [UIColor colorWithRed:15 green:15 blue:15 alpha:0.02];
@@ -36,10 +39,13 @@
         
         UIButton *btn = [UIButton new];
         [btn addTarget:self action:@selector(remove:) forControlEvents:UIControlEventTouchUpInside];
-        btn.frame = CGRectMake(20, 40, 40, 25);
-        [btn setTitle:@"CLS" forState:UIControlStateNormal];
+        btn.frame = CGRectMake(20, 80, 25, 25);
+        btn.layer.masksToBounds = YES;
+        btn.layer.cornerRadius = 12.5;
+        [btn setTitle:@"关" forState:UIControlStateNormal];
+        [btn setBackgroundColor:[UIColor grayColor]];
         [self addSubview:btn];
-        [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
 
         
 //        UIButton *Mask = [UIButton new];
@@ -56,6 +62,17 @@
     return  self;
 }
 
+- (void)getFocusElementId
+{
+    NSString * javaScriptQuery = @"document.activeElement.id";
+//
+//    webView.evaluateJavaScript(javaScriptQuery) { (result, error) -> Void in
+//        print("focus element id = \(result as? String)")
+//    }
+    [_webView evaluateJavaScript:javaScriptQuery completionHandler:^(id _Nullable resul, NSError * _Nullable error) {
+        NSLog(@"resul %@",resul);
+    }];
+}
 - (void)Mask:(id)sender
 {
     if (!_maskView.isHidden) {
@@ -106,9 +123,20 @@
 
 - (void)start
 {
+    
+    __weak typeof(self) weakself = self;
+    [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+        
+        __strong typeof(self) strongSelf = weakself;
+        
+        [strongSelf.webView setCustomUserAgent:[self userAgent]];
+        //        echo(@"%@",[[NSUserDefaults standardUserDefaults] stringForKey:@"UserAgent"]);
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString: @"http://h5.h5youyou.com/youxi-h5/?tid=1199&mob=ios&gid=27e9098090eda8a605703d6afeb611b3"] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:20];
+        [strongSelf.webView loadRequest:request];
+    }];
+
    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString: @"http://h5.h5youyou.com/youxi-h5/?tid=1199&mob=ios&gid=27e9098090eda8a605703d6afeb611b3"]];
-    [self.webView loadRequest:request];
+  
 }
 
 - (void)remove:(id)sender
@@ -130,13 +158,61 @@
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler
 {
     NSLog(@"%@",navigationResponse);
+     decisionHandler(WKNavigationActionPolicyAllow);//允许跳转
 }
 /// 1 在发送请求之前，决定是否跳转
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
+    //拦截URL，判断http或https请求头部信息
     
+    NSMutableURLRequest *mutableRequest = [navigationAction.request mutableCopy];
+    NSDictionary *headFields = mutableRequest.allHTTPHeaderFields;
+    NSString *    agent  = headFields[@"User-Agent"];//登录的token
+    //判断请求头是否存在uuid字段，如果否，则表示该请求尚未设置请求头
+    if (![[self userAgentArrary] containsObject:agent]) {
+    
+        [mutableRequest setValue:[self userAgent] forHTTPHeaderField:@"User-Agent"];
+        //重新加载设置后的请求
+        [webView loadRequest:mutableRequest];
+    }
+    
+    decisionHandler(WKNavigationActionPolicyAllow);//允许跳转
 }
 
+- (NSArray *)userAgentArrary
+{
+    return @[@"Mozilla/5.0 (Linux; U; Android 2.3.6; en-us; Nexus S Build/GRK39F) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
+             @"Avant Browser/1.2.789rel1 (http://www.avantbrowser.com)",
+             @"Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.0.249.0 Safari/532.5",
+             @"Mozilla/5.0 (Windows; U; Windows NT 5.2; en-US) AppleWebKit/532.9 (KHTML, like Gecko) Chrome/5.0.310.0 Safari/532.9",
+             @"Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/534.7 (KHTML, like Gecko) Chrome/7.0.514.0 Safari/534.7",
+             @"Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US) AppleWebKit/534.14 (KHTML, like Gecko) Chrome/9.0.601.0 Safari/534.14",
+             @"Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.14 (KHTML, like Gecko) Chrome/10.0.601.0 Safari/534.14",
+             @"Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.20 (KHTML, like Gecko) Chrome/11.0.672.2 Safari/534.20",
+             @"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.27 (KHTML, like Gecko) Chrome/12.0.712.0 Safari/534.27",
+             @"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.24 Safari/535.1",
+             @"Mozilla/5.0 (Windows NT 6.0) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.120 Safari/535.2",
+             @"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.36 Safari/535.7",
+             @"Mozilla/5.0 (Windows; U; Windows NT 6.0 x64; en-US; rv:1.9pre) Gecko/2008072421 Minefield/3.0.2pre",
+             @"Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10",
+             @"Mozilla/5.0 (Windows; U; Windows NT 6.0; en-GB; rv:1.9.0.11) Gecko/2009060215 Firefox/3.0.11 (.NET CLR 3.5.30729)",
+             @"Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6 GTB5",
+             @"Mozilla/5.0 (Windows; U; Windows NT 5.1; tr; rv:1.9.2.8) Gecko/20100722 Firefox/3.6.8 ( .NET CLR 3.5.30729; .NET4.0E)",
+             @"Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/20100101 Firefox/4.0.1",
+             @"Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:2.0.1) Gecko/20100101 Firefox/4.0.1",
+             @"Mozilla/5.0 (Windows NT 5.1; rv:5.0) Gecko/20100101 Firefox/5.0",
+             @"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0a2) Gecko/20110622 Firefox/6.0a2",
+             @"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1",
+             @"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:2.0b4pre) Gecko/20100815 Minefield/4.0b4pre"];
+}
+
+- (NSString *)userAgent
+{
+    NSArray *userAgent = [self userAgentArrary];
+    NSString *agent = userAgent[arc4random_uniform([userAgent count])];
+    NSLog(@"agent %@",agent);
+    return agent;
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -16,6 +16,7 @@
 		57F237DD21C1FAF800858C47 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F237DB21C1FAF800858C47 /* GameViewController.m */; };
 		57F237DE21C1FAF800858C47 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57F237DC21C1FAF800858C47 /* GameViewController.xib */; };
 		57F237E121C23BA200858C47 /* WebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F237E021C23BA200858C47 /* WebView.m */; };
+		57F237E421C7400A00858C47 /* UIView+TouchAndTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F237E321C7400A00858C47 /* UIView+TouchAndTap.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,8 @@
 		57F237DC21C1FAF800858C47 /* GameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
 		57F237DF21C23BA200858C47 /* WebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebView.h; sourceTree = "<group>"; };
 		57F237E021C23BA200858C47 /* WebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebView.m; sourceTree = "<group>"; };
+		57F237E221C7400A00858C47 /* UIView+TouchAndTap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+TouchAndTap.h"; sourceTree = "<group>"; };
+		57F237E321C7400A00858C47 /* UIView+TouchAndTap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+TouchAndTap.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +70,8 @@
 			isa = PBXGroup;
 			children = (
 				57F237C421C1EDFF00858C47 /* AppDelegate.h */,
+				57F237E221C7400A00858C47 /* UIView+TouchAndTap.h */,
+				57F237E321C7400A00858C47 /* UIView+TouchAndTap.m */,
 				57F237C521C1EDFF00858C47 /* AppDelegate.m */,
 				57F237C721C1EDFF00858C47 /* ViewController.h */,
 				57F237C821C1EDFF00858C47 /* ViewController.m */,
@@ -159,6 +164,7 @@
 				57F237C921C1EDFF00858C47 /* ViewController.m in Sources */,
 				57F237E121C23BA200858C47 /* WebView.m in Sources */,
 				57F237D421C1EE0100858C47 /* main.m in Sources */,
+				57F237E421C7400A00858C47 /* UIView+TouchAndTap.m in Sources */,
 				57F237C621C1EDFF00858C47 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,6 +310,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LU39Q6REFF;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/H5App",
+					"$(PROJECT_DIR)/H5App/PTFakeTouch",
+				);
 				INFOPLIST_FILE = H5App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -323,6 +334,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LU39Q6REFF;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/H5App",
+					"$(PROJECT_DIR)/H5App/PTFakeTouch",
+				);
 				INFOPLIST_FILE = H5App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
