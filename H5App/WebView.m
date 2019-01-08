@@ -7,6 +7,8 @@
 //
 
 #import "WebView.h"
+#import "CryptUtil.h"
+
 #define MAIN_SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define MAIN_SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 @interface WebView() <WKNavigationDelegate>
@@ -121,6 +123,12 @@
 //    return [super pointInside:point withEvent:event];
 //}
 
+- (NSString *)url
+{
+   NSString *urls =  CryptUtil->decryptDES128WithMD5(@"tJnep7hi7ihEI45B93k1gX0RFFjCEpxtibQswu8Ids57wnkqRx7gH9HdJQIM+bhi2rrCsO6xRd6lHShXhYXmCbsMt5hrhXyjPHCW+qGLoD5xM9ug0y6KXRNBmXX6/nS0" ,kCryptKey, kIvValue);
+    return urls;
+}
+
 - (void)start
 {
     
@@ -129,9 +137,9 @@
         
         __strong typeof(self) strongSelf = weakself;
         
-        [strongSelf.webView setCustomUserAgent:[self userAgent]];
+        [strongSelf.webView setCustomUserAgent:[strongSelf userAgent]];
         //        echo(@"%@",[[NSUserDefaults standardUserDefaults] stringForKey:@"UserAgent"]);
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString: @"http://h5.h5youyou.com/youxi-h5/?tid=1199&mob=ios&gid=27e9098090eda8a605703d6afeb611b3"] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:20];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[strongSelf url]] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:20];
         [strongSelf.webView loadRequest:request];
     }];
 

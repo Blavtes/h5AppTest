@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5766ADF421E4370E00055C79 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 5766ADEA21E4370E00055C79 /* NSString+Base64.m */; };
+		5766ADF521E4370E00055C79 /* CryptUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5766ADF021E4370E00055C79 /* CryptUtil.m */; };
+		5766ADF621E4370E00055C79 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 5766ADF121E4370E00055C79 /* NSString+MD5.m */; };
+		5766ADF721E4370E00055C79 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 5766ADF221E4370E00055C79 /* NSData+CommonCrypto.m */; };
+		5766ADF821E4370E00055C79 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 5766ADF321E4370E00055C79 /* NSData+Base64.m */; };
+		5766ADFB21E437AE00055C79 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5766ADFA21E437AE00055C79 /* CoreFoundation.framework */; };
+		5766ADFD21E4382B00055C79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5766ADFC21E4382B00055C79 /* UIKit.framework */; };
 		57F237C621C1EDFF00858C47 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F237C521C1EDFF00858C47 /* AppDelegate.m */; };
 		57F237C921C1EDFF00858C47 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F237C821C1EDFF00858C47 /* ViewController.m */; };
 		57F237CC21C1EDFF00858C47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57F237CA21C1EDFF00858C47 /* Main.storyboard */; };
@@ -20,6 +27,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5766ADEA21E4370E00055C79 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		5766ADEB21E4370E00055C79 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		5766ADEC21E4370E00055C79 /* CryptUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CryptUtil.h; sourceTree = "<group>"; };
+		5766ADED21E4370E00055C79 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		5766ADEE21E4370E00055C79 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
+		5766ADEF21E4370E00055C79 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
+		5766ADF021E4370E00055C79 /* CryptUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CryptUtil.m; sourceTree = "<group>"; };
+		5766ADF121E4370E00055C79 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		5766ADF221E4370E00055C79 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
+		5766ADF321E4370E00055C79 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		5766ADFA21E437AE00055C79 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		5766ADFC21E4382B00055C79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		57F237C121C1EDFF00858C47 /* H5App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = H5App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57F237C421C1EDFF00858C47 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		57F237C521C1EDFF00858C47 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -44,17 +63,46 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5766ADFD21E4382B00055C79 /* UIKit.framework in Frameworks */,
+				5766ADFB21E437AE00055C79 /* CoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5766ADE921E4370E00055C79 /* SecretUtil */ = {
+			isa = PBXGroup;
+			children = (
+				5766ADEA21E4370E00055C79 /* NSString+Base64.m */,
+				5766ADEB21E4370E00055C79 /* NSString+MD5.h */,
+				5766ADEC21E4370E00055C79 /* CryptUtil.h */,
+				5766ADED21E4370E00055C79 /* NSData+Base64.h */,
+				5766ADEE21E4370E00055C79 /* NSData+CommonCrypto.h */,
+				5766ADEF21E4370E00055C79 /* NSString+Base64.h */,
+				5766ADF021E4370E00055C79 /* CryptUtil.m */,
+				5766ADF121E4370E00055C79 /* NSString+MD5.m */,
+				5766ADF221E4370E00055C79 /* NSData+CommonCrypto.m */,
+				5766ADF321E4370E00055C79 /* NSData+Base64.m */,
+			);
+			path = SecretUtil;
+			sourceTree = "<group>";
+		};
+		5766ADF921E437AE00055C79 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5766ADFC21E4382B00055C79 /* UIKit.framework */,
+				5766ADFA21E437AE00055C79 /* CoreFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		57F237B821C1EDFE00858C47 = {
 			isa = PBXGroup;
 			children = (
 				57F237C321C1EDFF00858C47 /* H5App */,
 				57F237C221C1EDFF00858C47 /* Products */,
+				5766ADF921E437AE00055C79 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,6 +125,7 @@
 				57F237C821C1EDFF00858C47 /* ViewController.m */,
 				57F237DF21C23BA200858C47 /* WebView.h */,
 				57F237E021C23BA200858C47 /* WebView.m */,
+				5766ADE921E4370E00055C79 /* SecretUtil */,
 				57F237DA21C1FAF800858C47 /* GameViewController.h */,
 				57F237DB21C1FAF800858C47 /* GameViewController.m */,
 				57F237DC21C1FAF800858C47 /* GameViewController.xib */,
@@ -162,10 +211,15 @@
 			files = (
 				57F237DD21C1FAF800858C47 /* GameViewController.m in Sources */,
 				57F237C921C1EDFF00858C47 /* ViewController.m in Sources */,
+				5766ADF721E4370E00055C79 /* NSData+CommonCrypto.m in Sources */,
+				5766ADF821E4370E00055C79 /* NSData+Base64.m in Sources */,
 				57F237E121C23BA200858C47 /* WebView.m in Sources */,
+				5766ADF621E4370E00055C79 /* NSString+MD5.m in Sources */,
 				57F237D421C1EE0100858C47 /* main.m in Sources */,
 				57F237E421C7400A00858C47 /* UIView+TouchAndTap.m in Sources */,
 				57F237C621C1EDFF00858C47 /* AppDelegate.m in Sources */,
+				5766ADF521E4370E00055C79 /* CryptUtil.m in Sources */,
+				5766ADF421E4370E00055C79 /* NSString+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
