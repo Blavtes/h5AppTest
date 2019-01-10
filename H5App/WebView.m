@@ -8,6 +8,8 @@
 
 #import "WebView.h"
 #import "CryptUtil.h"
+#import <objc/runtime.h>
+#import "NSString+MD5.h"
 
 #define MAIN_SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define MAIN_SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -44,7 +46,7 @@
         btn.frame = CGRectMake(20, 80, 25, 25);
         btn.layer.masksToBounds = YES;
         btn.layer.cornerRadius = 12.5;
-        [btn setTitle:@"关" forState:UIControlStateNormal];
+        [btn setTitle:@"CS" forState:UIControlStateNormal];
         [btn setBackgroundColor:[UIColor grayColor]];
         [self addSubview:btn];
         [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
@@ -123,10 +125,21 @@
 //    return [super pointInside:point withEvent:event];
 //}
 
+- (NSString *)urlMd5ReqIdString
+{
+    NSArray *tid = @[@"1177",@"1188",@"1199",@"1198",@"1178",@"1179",@"1181"];
+    NSString *codeStr = [NSString stringWithFormat:@"%@_%.2f_%ld",@"123xsdf3hd",CFAbsoluteTimeGetCurrent(),random()];
+    NSString *url = CryptUtil->decryptDES128WithMD5(@"tJnep7hi7ihEI45B93k1gX0RFFjCEpxtibQswu8Ids6cyz7I92nKPh8kVNip6GYa",kCryptKey,kIvValue);
+    return [NSString stringWithFormat:@"%@?tid=%@&mob=ios&gid=%@",url,tid[arc4random_uniform([tid count])],[[codeStr MD5Sum] lowercaseString]];
+}
+
 - (NSString *)url
 {
-   NSString *urls =  CryptUtil->decryptDES128WithMD5(@"tJnep7hi7ihEI45B93k1gX0RFFjCEpxtibQswu8Ids57wnkqRx7gH9HdJQIM+bhi2rrCsO6xRd6lHShXhYXmCbsMt5hrhXyjPHCW+qGLoD5xM9ug0y6KXRNBmXX6/nS0" ,kCryptKey, kIvValue);
-    return urls;
+
+    NSArray *arr = @[[self urlMd5ReqIdString],[self urlMd5ReqIdString],[self urlMd5ReqIdString],[self urlMd5ReqIdString],[self urlMd5ReqIdString],[self urlMd5ReqIdString],[self urlMd5ReqIdString],[self urlMd5ReqIdString],[self urlMd5ReqIdString],[self urlMd5ReqIdString],[self urlMd5ReqIdString],[self urlMd5ReqIdString],[self urlMd5ReqIdString],[self urlMd5ReqIdString],[self urlMd5ReqIdString]];
+    NSLog(@"%@",arr);
+    return arr[arc4random_uniform([arr count])];
+
 }
 
 - (void)start
@@ -141,6 +154,7 @@
         //        echo(@"%@",[[NSUserDefaults standardUserDefaults] stringForKey:@"UserAgent"]);
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[strongSelf url]] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:20];
         [strongSelf.webView loadRequest:request];
+        [strongSelf webView:strongSelf.webView enableGL:NO debugUrl:@""];
     }];
 
    
@@ -229,5 +243,53 @@
     // Drawing code
 }
 */
+typedef void (*CallFuc)(id, SEL, BOOL);
+typedef BOOL (*GetFuc)(id, SEL);
+- (BOOL)webView:(WKWebView*)view enableGL:(BOOL)bEnable debugUrl:(NSString *)urlStr
+{
+    BOOL bRet = NO;
+    do {
+        Ivar internalVar = class_getInstanceVariable([view class], "_internal");
+        if (!internalVar) {
+            break;
+        }
+        
+        UIWebViewInternal* internalObj = object_getIvar(view, internalVar);
+        Ivar browserVar = class_getInstanceVariable(object_getClass(internalObj), "browserView");
+        if (!browserVar) {
+            break;
+        }
+        
+        id webbrowser = object_getIvar(internalObj, browserVar);
+        Ivar webViewVar = class_getInstanceVariable(object_getClass(webbrowser), "_webView");
+        if (!webViewVar) {
+            break;
+        }
+        
+        id webView = object_getIvar(webbrowser, webViewVar);
+        if (!webView) {
+        }
+        
+        if(object_getClass(webView) != NSClassFromString(@"WebView")) {
+            break;
+        }
+        
+        SEL selector = NSSelectorFromString(@"_setWebGLEnabled:");
+        IMP impSet = [webView methodForSelector:selector];
+        CallFuc func = (CallFuc)impSet;
+        func(webView, selector, bEnable);
+        
+        SEL selectorGet = NSSelectorFromString(@"_webGLEnabled");
+        IMP impGet = [webView methodForSelector:selectorGet];
+        GetFuc funcGet = (GetFuc)impGet;
+        BOOL val = funcGet(webView, selector);
+        
+        bRet = (val == bEnable);
+        
+    } while (NO);
+    
+    return bRet;
+}
+
 
 @end

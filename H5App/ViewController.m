@@ -66,7 +66,7 @@
     [self.view addSubview:btn];
     btn.layer.masksToBounds = YES;
     btn.layer.cornerRadius = 12.5;
-    [btn setTitle:@"开" forState:UIControlStateNormal];
+    [btn setTitle:@"O" forState:UIControlStateNormal];
 //    swi.titleLabel.textColor = [UIColor grayColor];
     [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [btn setBackgroundColor:[UIColor grayColor]];
@@ -77,7 +77,7 @@
     [self.view addSubview:hide];
 //    hide.layer.masksToBounds = YES;
 //    btn.layer.cornerRadius = 12.5;
-    [hide setTitle:@"隐" forState:UIControlStateNormal];
+    [hide setTitle:@"H" forState:UIControlStateNormal];
     //    swi.titleLabel.textColor = [UIColor grayColor];
     [hide setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [hide setBackgroundColor:[UIColor grayColor]];
@@ -88,7 +88,7 @@
     [self.view addSubview:show];
     //    hide.layer.masksToBounds = YES;
     //    btn.layer.cornerRadius = 12.5;
-    [show setTitle:@"显" forState:UIControlStateNormal];
+    [show setTitle:@"S" forState:UIControlStateNormal];
     //    swi.titleLabel.textColor = [UIColor grayColor];
     [show setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [show setBackgroundColor:[UIColor grayColor]];
