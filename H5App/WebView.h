@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 typedef void(^RemoveCall)(void);
 @interface WebView : UIView
-@property (nonatomic, weak) WKWebView *webView;
+@property (nonatomic, weak) UIWebView *webView;
 @property (nonatomic, copy) RemoveCall removeCall;
 - (instancetype)initWithFrame:(CGRect)frame;
 - (void)start;

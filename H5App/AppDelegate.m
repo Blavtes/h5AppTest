@@ -18,6 +18,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     // Override point for customization after application launch.
+    NSLog(@"%@", [NSHomeDirectory( ) stringByAppendingPathComponent:@"Documents"]);
     return YES;
 }
 

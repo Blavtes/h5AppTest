@@ -13,7 +13,7 @@
 
 #define MAIN_SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define MAIN_SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
-@interface WebView() <WKNavigationDelegate>
+@interface WebView() <UIWebViewDelegate>
 @property (nonatomic, weak) UIView *maskView;
  @end
 
@@ -25,10 +25,11 @@
     if (self = [super initWithFrame:frame]) {
        
         
-        WKWebView *web = [[WKWebView alloc] initWithFrame:CGRectMake(10, 0, 0.9 * MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT *0.85)];
+        UIWebView *web = [[UIWebView alloc] initWithFrame:CGRectMake(10, 0, 0.9 * MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT *0.85)];
 //        web.delegate =self;
         web.backgroundColor = [UIColor grayColor];
-        web.navigationDelegate = self;
+//        web.navigationDelegate = self;
+        web.delegate = self;
         [self addSubview:web];
         _webView = web;
 //        NotificationCenter default.addObserver(self, selector: @selector(getFocusElementId), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -73,9 +74,9 @@
 //    webView.evaluateJavaScript(javaScriptQuery) { (result, error) -> Void in
 //        print("focus element id = \(result as? String)")
 //    }
-    [_webView evaluateJavaScript:javaScriptQuery completionHandler:^(id _Nullable resul, NSError * _Nullable error) {
-        NSLog(@"resul %@",resul);
-    }];
+//    [_webView evaluateJavaScript:javaScriptQuery completionHandler:^(id _Nullable resul, NSError * _Nullable error) {
+//        NSLog(@"resul %@",resul);
+//    }];
 }
 - (void)Mask:(id)sender
 {
@@ -146,16 +147,16 @@
 {
     
     __weak typeof(self) weakself = self;
-    [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
-        
+//    [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+    
         __strong typeof(self) strongSelf = weakself;
         
-        [strongSelf.webView setCustomUserAgent:[strongSelf userAgent]];
+//        [strongSelf.webView setCustomUserAgent:[strongSelf userAgent]];
         //        echo(@"%@",[[NSUserDefaults standardUserDefaults] stringForKey:@"UserAgent"]);
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[strongSelf url]] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:20];
-        [strongSelf.webView loadRequest:request];
-        [strongSelf webView:strongSelf.webView enableGL:NO debugUrl:@""];
-    }];
+        [self.webView loadRequest:request];
+        [self webView:self.webView enableGL:NO debugUrl:@""];
+//    }];
 
    
   
@@ -245,7 +246,7 @@
 */
 typedef void (*CallFuc)(id, SEL, BOOL);
 typedef BOOL (*GetFuc)(id, SEL);
-- (BOOL)webView:(WKWebView*)view enableGL:(BOOL)bEnable debugUrl:(NSString *)urlStr
+- (BOOL)webView:(UIWebView*)view enableGL:(BOOL)bEnable debugUrl:(NSString *)urlStr
 {
     BOOL bRet = NO;
     do {

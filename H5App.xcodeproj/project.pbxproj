@@ -14,6 +14,9 @@
 		5766ADF821E4370E00055C79 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 5766ADF321E4370E00055C79 /* NSData+Base64.m */; };
 		5766ADFB21E437AE00055C79 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5766ADFA21E437AE00055C79 /* CoreFoundation.framework */; };
 		5766ADFD21E4382B00055C79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5766ADFC21E4382B00055C79 /* UIKit.framework */; };
+		5766AE0021E72AF900055C79 /* YJCustomURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 5766ADFF21E72AF900055C79 /* YJCustomURLProtocol.m */; };
+		5766AE0321E7444700055C79 /* JSDownManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5766AE0221E7444700055C79 /* JSDownManager.m */; };
+		57AA64D221E7461B00080F47 /* JYCustomDataProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AA64D021E7461A00080F47 /* JYCustomDataProtocol.m */; };
 		57F237C621C1EDFF00858C47 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F237C521C1EDFF00858C47 /* AppDelegate.m */; };
 		57F237C921C1EDFF00858C47 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F237C821C1EDFF00858C47 /* ViewController.m */; };
 		57F237CC21C1EDFF00858C47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57F237CA21C1EDFF00858C47 /* Main.storyboard */; };
@@ -24,6 +27,7 @@
 		57F237DE21C1FAF800858C47 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57F237DC21C1FAF800858C47 /* GameViewController.xib */; };
 		57F237E121C23BA200858C47 /* WebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F237E021C23BA200858C47 /* WebView.m */; };
 		57F237E421C7400A00858C47 /* UIView+TouchAndTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F237E321C7400A00858C47 /* UIView+TouchAndTap.m */; };
+		B181921CCD54028F167EEFC6 /* libPods-H5App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D868E768C4299B13B25B17 /* libPods-H5App.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +43,12 @@
 		5766ADF321E4370E00055C79 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		5766ADFA21E437AE00055C79 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		5766ADFC21E4382B00055C79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		5766ADFE21E72AF900055C79 /* YJCustomURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJCustomURLProtocol.h; sourceTree = "<group>"; };
+		5766ADFF21E72AF900055C79 /* YJCustomURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJCustomURLProtocol.m; sourceTree = "<group>"; };
+		5766AE0121E7444700055C79 /* JSDownManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSDownManager.h; sourceTree = "<group>"; };
+		5766AE0221E7444700055C79 /* JSDownManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSDownManager.m; sourceTree = "<group>"; };
+		57AA64D021E7461A00080F47 /* JYCustomDataProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYCustomDataProtocol.m; sourceTree = "<group>"; };
+		57AA64D121E7461B00080F47 /* JYCustomDataProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYCustomDataProtocol.h; sourceTree = "<group>"; };
 		57F237C121C1EDFF00858C47 /* H5App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = H5App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57F237C421C1EDFF00858C47 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		57F237C521C1EDFF00858C47 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -56,6 +66,9 @@
 		57F237E021C23BA200858C47 /* WebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebView.m; sourceTree = "<group>"; };
 		57F237E221C7400A00858C47 /* UIView+TouchAndTap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+TouchAndTap.h"; sourceTree = "<group>"; };
 		57F237E321C7400A00858C47 /* UIView+TouchAndTap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+TouchAndTap.m"; sourceTree = "<group>"; };
+		BEF4A8978E3FC2B1BBFFF72B /* Pods-H5App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-H5App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-H5App/Pods-H5App.debug.xcconfig"; sourceTree = "<group>"; };
+		E69D9FD0DC70B4AB17383D18 /* Pods-H5App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-H5App.release.xcconfig"; path = "Pods/Target Support Files/Pods-H5App/Pods-H5App.release.xcconfig"; sourceTree = "<group>"; };
+		F7D868E768C4299B13B25B17 /* libPods-H5App.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-H5App.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +78,7 @@
 			files = (
 				5766ADFD21E4382B00055C79 /* UIKit.framework in Frameworks */,
 				5766ADFB21E437AE00055C79 /* CoreFoundation.framework in Frameworks */,
+				B181921CCD54028F167EEFC6 /* libPods-H5App.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +107,7 @@
 			children = (
 				5766ADFC21E4382B00055C79 /* UIKit.framework */,
 				5766ADFA21E437AE00055C79 /* CoreFoundation.framework */,
+				F7D868E768C4299B13B25B17 /* libPods-H5App.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -103,6 +118,7 @@
 				57F237C321C1EDFF00858C47 /* H5App */,
 				57F237C221C1EDFF00858C47 /* Products */,
 				5766ADF921E437AE00055C79 /* Frameworks */,
+				ED2F3E60BC255FE9567C7E2B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +141,12 @@
 				57F237C821C1EDFF00858C47 /* ViewController.m */,
 				57F237DF21C23BA200858C47 /* WebView.h */,
 				57F237E021C23BA200858C47 /* WebView.m */,
+				5766ADFE21E72AF900055C79 /* YJCustomURLProtocol.h */,
+				5766ADFF21E72AF900055C79 /* YJCustomURLProtocol.m */,
+				57AA64D121E7461B00080F47 /* JYCustomDataProtocol.h */,
+				57AA64D021E7461A00080F47 /* JYCustomDataProtocol.m */,
+				5766AE0121E7444700055C79 /* JSDownManager.h */,
+				5766AE0221E7444700055C79 /* JSDownManager.m */,
 				5766ADE921E4370E00055C79 /* SecretUtil */,
 				57F237DA21C1FAF800858C47 /* GameViewController.h */,
 				57F237DB21C1FAF800858C47 /* GameViewController.m */,
@@ -138,6 +160,15 @@
 			path = H5App;
 			sourceTree = "<group>";
 		};
+		ED2F3E60BC255FE9567C7E2B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BEF4A8978E3FC2B1BBFFF72B /* Pods-H5App.debug.xcconfig */,
+				E69D9FD0DC70B4AB17383D18 /* Pods-H5App.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -145,9 +176,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 57F237D721C1EE0100858C47 /* Build configuration list for PBXNativeTarget "H5App" */;
 			buildPhases = (
+				60310CA2322934CD5C9B47DA /* [CP] Check Pods Manifest.lock */,
 				57F237BD21C1EDFE00858C47 /* Sources */,
 				57F237BE21C1EDFE00858C47 /* Frameworks */,
 				57F237BF21C1EDFE00858C47 /* Resources */,
+				F86C8156AE7B33D35106E062 /* [CP] Embed Pods Frameworks */,
+				C7099CD948424A08C0D53B76 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -204,6 +238,57 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		60310CA2322934CD5C9B47DA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-H5App-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C7099CD948424A08C0D53B76 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-H5App/Pods-H5App-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F86C8156AE7B33D35106E062 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-H5App/Pods-H5App-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		57F237BD21C1EDFE00858C47 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -212,7 +297,9 @@
 				57F237DD21C1FAF800858C47 /* GameViewController.m in Sources */,
 				57F237C921C1EDFF00858C47 /* ViewController.m in Sources */,
 				5766ADF721E4370E00055C79 /* NSData+CommonCrypto.m in Sources */,
+				5766AE0021E72AF900055C79 /* YJCustomURLProtocol.m in Sources */,
 				5766ADF821E4370E00055C79 /* NSData+Base64.m in Sources */,
+				57AA64D221E7461B00080F47 /* JYCustomDataProtocol.m in Sources */,
 				57F237E121C23BA200858C47 /* WebView.m in Sources */,
 				5766ADF621E4370E00055C79 /* NSString+MD5.m in Sources */,
 				57F237D421C1EE0100858C47 /* main.m in Sources */,
@@ -220,6 +307,7 @@
 				57F237C621C1EDFF00858C47 /* AppDelegate.m in Sources */,
 				5766ADF521E4370E00055C79 /* CryptUtil.m in Sources */,
 				5766ADF421E4370E00055C79 /* NSString+Base64.m in Sources */,
+				5766AE0321E7444700055C79 /* JSDownManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +447,7 @@
 		};
 		57F237D821C1EE0100858C47 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEF4A8978E3FC2B1BBFFF72B /* Pods-H5App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -383,6 +472,7 @@
 		};
 		57F237D921C1EE0100858C47 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E69D9FD0DC70B4AB17383D18 /* Pods-H5App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

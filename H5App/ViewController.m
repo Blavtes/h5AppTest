@@ -16,10 +16,13 @@
 #include <ifaddrs.h>
 #include <sys/socket.h>
 #include <net/if.h>
+#import <SDWebImageManager.h>
 
 //cpu
 #import <mach/mach.h>
 #import <assert.h>
+#import "YJCustomURLProtocol.h"
+#import "JYCustomDataProtocol.h"
 
 @interface ViewController ()<UIWebViewDelegate,UIScrollViewDelegate>
 @property (nonatomic, assign) int count;
@@ -50,7 +53,9 @@
 //    _scroll2 = scroll2;s
     self.view.backgroundColor = [UIColor darkGrayColor];
 //    _scroll1.maximumZoomScale = 1.5;
-
+    [NSURLProtocol registerClass:[YJCustomURLProtocol class]];
+    [NSURLProtocol registerClass:[JYCustomDataProtocol class]];
+    
     WebView *web = [[WebView alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH , MAIN_SCREEN_HEIGHT)];
     web.removeCall = ^{
          [self checkoutWeb];
@@ -75,6 +80,22 @@
     UIButton *hide = [[UIButton alloc] initWithFrame:CGRectMake(5, MAIN_SCREEN_HEIGHT - 65, 60, 30)];
     [hide addTarget:self action:@selector(hide:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:hide];
+    
+    
+    
+    UIButton *cls = [[UIButton alloc] initWithFrame:CGRectMake(5, 320, 25, 25)];
+    [cls addTarget:self action:@selector(cls:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:cls];
+    cls.layer.masksToBounds = YES;
+    cls.layer.cornerRadius = 12.5;
+    [cls setTitle:@"cls" forState:UIControlStateNormal];
+    //    swi.titleLabel.textColor = [UIColor grayColor];
+    [cls setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [cls setBackgroundColor:[UIColor grayColor]];
+    // Do any additional setup after loading the view, typically from a nib.
+    
+
+    
 //    hide.layer.masksToBounds = YES;
 //    btn.layer.cornerRadius = 12.5;
     [hide setTitle:@"H" forState:UIControlStateNormal];
@@ -119,17 +140,29 @@
     [cpu setBackgroundColor:[UIColor grayColor]];
 }
 
+- (void)cls:(id)sender
+{
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    
+    NSString *js =  [cachePath stringByAppendingPathComponent:@"js"];
+    NSString *css =  [cachePath stringByAppendingPathComponent:@"css"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    [fileManager removeItemAtPath:js error:nil];
+    [fileManager removeItemAtPath:css error:nil];
+
+}
+
 - (void)checkouHtml
 {
     NSString *doc = @"document.documentElement.innerHTML";
     
-    [self.web.webView evaluateJavaScript:doc
-                     completionHandler:^(id _Nullable htmlStr, NSError * _Nullable error) {
-                         if (error) {
-                             NSLog(@"JSError:%@",error);
-                         }
-                         NSLog(@"html:%@",htmlStr);
-                     }] ;
+//    [self.web.webView evaluateJavaScript:doc
+//                     completionHandler:^(id _Nullable htmlStr, NSError * _Nullable error) {
+//                         if (error) {
+//                             NSLog(@"JSError:%@",error);
+//                         }
+//                         NSLog(@"html:%@",htmlStr);
+//                     }] ;
 }
 
 - (void)g3:(UIButton*)btn
@@ -137,6 +170,28 @@
     NSString *gprs = [self getGprs3GFlowIOBytes];
     [btn setTitle:gprs forState:UIControlStateNormal];
 
+}
+
+- (NSString *)getCache
+{
+    NSUInteger bytes = [[[SDWebImageManager sharedManager] imageCache] getSize];
+    
+    if(bytes < 1024)        // B
+    {
+        return [NSString stringWithFormat:@"%dB", bytes];
+    }
+    else if(bytes >= 1024 && bytes < 1024 * 1024)    // KB
+    {
+        return [NSString stringWithFormat:@"%.1fKB", (double)bytes / 1024];
+    }
+    else if(bytes >= 1024 * 1024 && bytes < 1024 * 1024 * 1024)    // MB
+    {
+        return [NSString stringWithFormat:@"%.2fMB", (double)bytes / (1024 * 1024)];
+    }
+    else    // GB
+    {
+        return [NSString stringWithFormat:@"%.3fGB", (double)bytes / (1024 * 1024 * 1024)];
+    }
 }
 
 - (void)cpu:(UIButton*)btn
