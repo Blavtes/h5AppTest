@@ -28,7 +28,7 @@ static NSString *const KYJURLProtocolHandlerKey = @"URLProtocolHandlerKey";
 //    NSString *scheme = [[request URL] host];
     
     
-    if ([request.URL.absoluteString containsString:@"png"] || [request.URL.absoluteString containsString:@"jpg"] || [request.URL.absoluteString containsString:@"img"]) {
+    if (([request.URL.absoluteString containsString:@".png"] || [request.URL.absoluteString containsString:@".jpg"] || [request.URL.absoluteString containsString:@".gif"]) && ([request.URL.absoluteString containsString:@"/img/"]  || [request.URL.absoluteString containsString:@"/model/"] || [request.URL.absoluteString containsString:@"/resource/"] )) {
     
         //看看是否已经处理过了，防止无限循环
         if ([NSURLProtocol propertyForKey:KYJURLProtocolHandlerKey inRequest:request]) {
@@ -73,14 +73,17 @@ static NSString *const KYJURLProtocolHandlerKey = @"URLProtocolHandlerKey";
      [self.client URLProtocol:self didLoadData:data];
      [self.client URLProtocolDidFinishLoading:self];
      */
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-  
+    
+    static char *queuname = "__wirtghe__image";
+    typeof(self)weakSelf = self;
+    dispatch_barrier_async(dispatch_queue_create(queuname, DISPATCH_QUEUE_CONCURRENT), ^{
+
+
     [[SDWebImageManager sharedManager] loadImageWithURL:self.request.URL options:0 progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
         
+          typeof(self)strongSelf = weakSelf;
         
-        
-        NSLog(@"type %ld",cacheType);
+//        NSLog(@"type %ld",cacheType);
         if (image) {
             
 //            NSLog(@"下载图片成功");
@@ -91,18 +94,18 @@ static NSString *const KYJURLProtocolHandlerKey = @"URLProtocolHandlerKey";
             header[@"Content-Type"] = contentType;
             header[@"Content-Length"] = [NSString stringWithFormat:@"%lu", (unsigned long) UIImageJPEGRepresentation(image, 1.0).length];
             
-            NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:self.request.URL statusCode:200 HTTPVersion:@"1.1" headerFields:header];
+            NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:strongSelf.request.URL statusCode:200 HTTPVersion:@"1.1" headerFields:header];
             
-            [self.client URLProtocol:self didReceiveResponse:httpResponse cacheStoragePolicy:NSURLCacheStorageAllowed];
+            [strongSelf.client URLProtocol:strongSelf didReceiveResponse:httpResponse cacheStoragePolicy:NSURLCacheStorageAllowed];
             
-            [self.client URLProtocol:self didLoadData:UIImageJPEGRepresentation(image, 1.0)];
+            [strongSelf.client URLProtocol:strongSelf didLoadData:UIImageJPEGRepresentation(image, 1.0)];
             
-            [self.client URLProtocolDidFinishLoading:self];
+            [strongSelf.client URLProtocolDidFinishLoading:strongSelf];
 
             
         }else{
         
-            NSLog(@"下载失败");
+//            NSLog(@"下载失败 %@",self.request.URL);
         }
         
         
@@ -110,7 +113,7 @@ static NSString *const KYJURLProtocolHandlerKey = @"URLProtocolHandlerKey";
     
     
     
-    NSMutableURLRequest *mubleRequest = [[self request] mutableCopy];
+    NSMutableURLRequest *mubleRequest = [[weakSelf request] mutableCopy];
 //     NSLog(@"---startLoad = %@",mubleRequest.URL.host);
     //做好标记
     [NSURLProtocol setProperty:@(YES) forKey:KYJURLProtocolHandlerKey inRequest:mubleRequest];

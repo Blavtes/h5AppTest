@@ -22,7 +22,12 @@ static NSString * const hasInitKey = @"JYCustomDataProtocolKey";
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request
 {
-    if ([request.URL.absoluteString containsString:@".js"] || [request.URL.absoluteString containsString:@".css"]) {
+//    NSLog(@"---dat requestURL = %@  ---  %@",request.URL.absoluteString,request.allHTTPHeaderFields);
+//
+    if (([request.URL.absoluteString containsString:@".js"] && ([request.URL.absoluteString containsString:@"/js"] || [request.URL.absoluteString containsString:@"/js_ls"]))
+        || ([request.URL.absoluteString containsString:@".css"] && [request.URL.absoluteString containsString:@"/css/"])
+        ||  ([request.URL.absoluteString containsString:@".json"] && ([request.URL.absoluteString containsString:@"/model/"] || ([request.URL.absoluteString containsString:@"map"])))
+        || ([request.URL.absoluteString containsString:@".fnt"] && [request.URL.absoluteString containsString:@"/resource/"]) ) {
         if ([NSURLProtocol propertyForKey:hasInitKey inRequest:request]) {
             return NO;
         }
@@ -35,6 +40,7 @@ static NSString * const hasInitKey = @"JYCustomDataProtocolKey";
     
     NSMutableURLRequest *mutableReqeust = [request mutableCopy];
     //这边可用干你想干的事情。。更改地址，或者设置里面的请求头。。
+//    NSLog(@"mutableReqeust %@ %@",mutableReqeust.HTTPMethod,mutableReqeust.allHTTPHeaderFields);
     return mutableReqeust;
 }
 
@@ -43,7 +49,8 @@ static NSString * const hasInitKey = @"JYCustomDataProtocolKey";
     NSMutableURLRequest *mutableReqeust = [[self request] mutableCopy];
     //做下标记，防止递归调用
     [NSURLProtocol setProperty:@YES forKey:hasInitKey inRequest:mutableReqeust];
-    
+//    NSLog(@"---dat requestURL = %@  ---  %@",mutableReqeust.URL.absoluteString,mutableReqeust.allHTTPHeaderFields);
+
     //这边就随便你玩了。。可以直接返回本地的模拟数据，进行测试
     typeof(self) weakSelf = self;
     [[JSDownManager new] downloadFileWithURL:self.request.URL.absoluteString downLoadBlock:^(BOOL cache,NSString *path) {
@@ -52,19 +59,29 @@ static NSString * const hasInitKey = @"JYCustomDataProtocolKey";
 //            NSString *str = @"测试数据";
 //
 //            NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
-            NSLog(@"path===> %@",path);
-            CFStringRef pathExtension = (__bridge_retained CFStringRef)[path pathExtension];
-            CFStringRef type = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension, NULL);
-            CFRelease(pathExtension);
+//            NSLog(@"path===> %@",path);
+           
+            static char *queuname = "___dsafd__da";
             
-            //The UTI can be converted to a mime type:
-            NSString *mimeType = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(type, kUTTagClassMIMEType);
-            if (type != NULL)
-                CFRelease(type);
-            
+            dispatch_async(dispatch_queue_create(queuname, DISPATCH_QUEUE_CONCURRENT), ^{
+                CFStringRef pathExtension = (__bridge_retained CFStringRef)[path pathExtension];
+                CFStringRef type = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension, NULL);
+                CFRelease(pathExtension);
+                
+                //The UTI can be converted to a mime type:
+                NSString *mimeType = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(type, kUTTagClassMIMEType);
+                if (type != NULL)
+                    CFRelease(type);
+                
+                if([[NSFileManager defaultManager] fileExistsAtPath:path]){
+                    NSData *data = [[NSFileManager defaultManager] contentsAtPath:path];
+                    [strongSelf sendResponseWithData:data mimeType:mimeType];
+                }
+                
+            });
             //加载本地资源
-            NSData *data = [NSData dataWithContentsOfFile:path];
-            [self sendResponseWithData:data mimeType:mimeType];
+//            NSData *data = [NSData dataWithContentsOfFile:path];
+//            [self sendResponseWithData:data mimeType:mimeType];
             
         } else {
             strongSelf.connection = [NSURLConnection connectionWithRequest:mutableReqeust delegate:strongSelf];
@@ -98,7 +115,7 @@ static NSString * const hasInitKey = @"JYCustomDataProtocolKey";
 
 - (void)sendResponseWithData:(NSData *)data mimeType:(nullable NSString *)mimeType
 {
-    NSLog(@"sendResponseWithData start");
+//    NSLog(@"sendResponseWithData start");
     // 这里需要用到MIMEType
     NSURLResponse *response = [[NSURLResponse alloc] initWithURL:super.request.URL
                                                         MIMEType:mimeType
@@ -107,7 +124,7 @@ static NSString * const hasInitKey = @"JYCustomDataProtocolKey";
     
     if ([self client]) {
         if ([self.client respondsToSelector:@selector(URLProtocol:didReceiveResponse:cacheStoragePolicy:)]) {
-            [[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+            [[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageAllowed];
         }
         if ([self.client respondsToSelector:@selector(URLProtocol:didLoadData:)]) {
             [[self client] URLProtocol:self didLoadData:data];
@@ -117,7 +134,7 @@ static NSString * const hasInitKey = @"JYCustomDataProtocolKey";
         }
     }
     
-    NSLog(@"sendResponseWithData end");
+//    NSLog(@"sendResponseWithData end");
 }
 
 - (void)stopLoading
@@ -136,7 +153,7 @@ static NSString * const hasInitKey = @"JYCustomDataProtocolKey";
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     self.responseData = [[NSMutableData alloc] init];
-    [self.client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+    [self.client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageAllowed];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {

@@ -29,7 +29,7 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:[self cachePath]] == YES) {
         if (self.downLoadBlock) {
-            NSLog(@"js/css ~~~~~");
+//            NSLog(@"js/css ~~~~~");
             self.downLoadBlock(YES,[self cachePath]);
         }
         return;
@@ -59,7 +59,7 @@
 - (NSString *)cachePath
 {
     NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSLog(@"[self.downLoadPath pathExtension] %@",self.downLoadEndPath);
+//    NSLog(@"[self.downLoadPath pathExtension] %@",self.downLoadEndPath);
     NSString *js =  [cachePath stringByAppendingPathComponent:self.downLoadEndPath];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:js]) {
@@ -75,31 +75,35 @@
       downloadTask:(NSURLSessionDownloadTask *)downloadTask
 didFinishDownloadingToURL:(NSURL *)location{
     
-    NSError *saveError;
-    
-    NSString *savePath = [self cachePath];
-    NSLog(@"js/css path %@",savePath);
-    NSURL *saveUrl = [NSURL fileURLWithPath:savePath];
-    
-    //把下载的内容从cache复制到document下
-    
-    [[NSFileManager defaultManager] copyItemAtURL:location toURL:saveUrl error:&saveError];
-    
-    if (!saveError) {
-        if (self.downLoadBlock) {
-           
-            self.downLoadBlock(YES,[self cachePath]);
-        }
-        NSLog(@"save success");
+//    static char *queuname = "__wirtghe";
+//    typeof(self)weakSelf = self;
+//    dispatch_barrier_async(dispatch_queue_create(queuname, DISPATCH_QUEUE_CONCURRENT), ^{
+         typeof(self)strongSelf = self;
+        NSError *saveError;
         
-    }else{
-        if (self.downLoadBlock) {
-            self.downLoadBlock(NO,nil);
-        }
-        NSLog(@"save error:%@",saveError.localizedDescription);
+        NSString *savePath = [strongSelf cachePath];
+//        NSLog(@"js/css path %@",savePath);
+        NSURL *saveUrl = [NSURL fileURLWithPath:savePath];
         
-    }
-    
+        //把下载的内容从cache复制到document下
+        
+        [[NSFileManager defaultManager] copyItemAtURL:location toURL:saveUrl error:&saveError];
+        
+        if (!saveError) {
+            if (strongSelf.downLoadBlock) {
+               
+                strongSelf.downLoadBlock(YES,[strongSelf cachePath]);
+            }
+//            NSLog(@"save success");
+            
+        }else{
+            if (strongSelf.downLoadBlock) {
+                strongSelf.downLoadBlock(NO,nil);
+            }
+            NSLog(@"save error:%@",saveError.localizedDescription);
+            
+        }
+//    });
 }
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
